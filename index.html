@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>360 AR View - Transfer Request</title>
+  
+  <!-- A-Frame & WebAR Libraries -->
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+    #ui-container {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      pointer-events: none;
+    }
+    .badge {
+      background: rgba(10, 25, 47, 0.85);
+      border: 1px solid #00f2fe;
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      text-align: center;
+    }
+    #call-action {
+      pointer-events: auto;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="ui-container">
+    <div class="badge">🔄 Turn your phone 360° to view the request</div>
+    <a id="call-action" href="tel:6201395489">📞 Call Praveen Tiwari</a>
+  </div>
+
+  <!-- WebAR Scene using Real-Time Gyro + Live Rear Camera -->
+  <a-scene 
+    embedded 
+    arjs="sourceType: webcam; debugUIEnabled: false;"
+    renderer="antialias: true; alpha: true; logarithmicDepthBuffer: true;">
+    
+    <a-assets>
+      <img id="poster" src="poster.png" />
+    </a-assets>
+
+    <!-- Camera tracking rotation (Gyroscope) -->
+    <a-camera position="0 0 0" look-controls="enabled: true; magicWindowTrackingEnabled: true"></a-camera>
+
+    <!-- CARD 1: Facing Front (North - 0°) -->
+    <a-entity position="0 0 -3" rotation="0 0 0">
+      <a-plane 
+        src="#poster" 
+        width="1.8" 
+        height="3.2" 
+        material="transparent: true; side: double; roughness: 0.2;"
+        animation="property: position; dir: alternate; dur: 2200; to: 0 0.1 -3; easing: easeInOutQuad; loop: true;">
+      </a-plane>
+      <!-- Subtle Holographic glow backplate -->
+      <a-plane 
+        width="1.95" 
+        height="3.35" 
+        color="#00f2fe" 
+        opacity="0.18" 
+        material="transparent: true; side: double;">
+      </a-plane>
+    </a-entity>
+
+    <!-- CARD 2: Facing Right (East - 90°) -->
+    <a-entity position="3 0 0" rotation="0 -90 0">
+      <a-plane 
+        src="#poster" 
+        width="1.8" 
+        height="3.2" 
+        material="transparent: true; side: double; roughness: 0.2;">
+      </a-plane>
+    </a-entity>
+
+    <!-- CARD 3: Facing Behind (South - 180°) -->
+    <a-entity position="0 0 3" rotation="0 180 0">
+      <a-plane 
+        src="#poster" 
+        width="1.8" 
+        height="3.2" 
+        material="transparent: true; side: double; roughness: 0.2;">
+      </a-plane>
+    </a-entity>
+
+    <!-- CARD 4: Facing Left (West - 270°) -->
+    <a-entity position="-3 0 0" rotation="0 90 0">
+      <a-plane 
+        src="#poster" 
+        width="1.8" 
+        height="3.2" 
+        material="transparent: true; side: double; roughness: 0.2;">
+      </a-plane>
+    </a-entity>
+
+  </a-scene>
+
+</body>
+</html>
